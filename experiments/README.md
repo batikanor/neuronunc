@@ -1,64 +1,105 @@
-# Coffee Data Analysis and ML Experiments
+# Coffee Data Analysis and Experiments
 
-This directory contains Python scripts for analyzing coffee brewing and grinding data, and running machine learning experiments using XGBoost and CatBoost.
+This directory contains Python scripts for analyzing coffee brewing and grinding data, as well as running machine learning experiments using XGBoost and CatBoost.
 
-## Files
+## Contents
 
-- `coffee_ml_analysis.py`: Main script for analyzing both grind and brew data
-- `brew_analysis.py`: Script focused specifically on brew data analysis
-- `requirements.txt`: Python dependencies required to run the scripts
+- `coffee_ml_analysis.py` - General coffee data analysis script
+- `brew_analysis.py` - Focused analysis of brew data
+- `stress_coffee_recommendation.py` - Proof of concept for stress-based coffee recommendations
+- `system_diagram.py` - Generates a diagram of the stress-based coffee system
+- `muse_stress_coffee.py` - Integration with Muse 2 headband for real EEG-based stress detection
+- `requirements.txt` - List of required Python packages
 
 ## Setup
 
-1. Install dependencies:
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Experiments
+For Muse headband integration, you'll need additional dependencies:
 
-### 1. General Coffee Data Analysis
+```bash
+pip install muselsl pylsl
+```
 
-Run the main analysis script:
+## Running Experiments
+
+### General Coffee Data Analysis
 
 ```bash
 python coffee_ml_analysis.py
 ```
 
 This script:
-- Loads both grind and brew data
-- Performs exploratory data analysis
-- Conducts correlation analysis
-- Trains and evaluates XGBoost and CatBoost models
-- Saves visualization and analysis results
+- Loads and explores both coffee grinding and brewing data
+- Performs correlation analysis
+- Trains XGBoost and CatBoost models
+- Compares model performance
+- Generates visualizations for feature importance
 
-### 2. Focused Brew Data Analysis
-
-Run the brew-specific analysis:
+### Brew Data Analysis
 
 ```bash
 python brew_analysis.py
 ```
 
-This script:
-- Loads and analyzes just the brew data (with sampling for large files)
-- Performs detailed correlation analysis
-- Trains models with multiple target variables (extractionYield, TDS, etc.)
-- Compares model performance and analyzes feature importance
+This script focuses specifically on brewing data:
+- Performs detailed exploratory data analysis
+- Conducts correlation analysis
+- Builds prediction models for extraction yield
+
+### Stress-Based Coffee Recommendation System
+
+```bash
+python stress_coffee_recommendation.py
+```
+
+This proof of concept:
+- Simulates EEG data collection from a Muse 2 headband
+- Analyzes stress levels
+- Recommends coffee parameters (dose, resting time, blends)
+- Demonstrates interface with coffee machine via Raspberry Pi
+
+### System Diagram Generation
+
+```bash
+python system_diagram.py
+```
+
+Generates a visual diagram of the stress-based coffee recommendation system architecture.
+
+### Muse Headband Integration
+
+```bash
+python muse_stress_coffee.py --use-real-muse
+```
+
+This experimental script:
+- Integrates with real Muse 2 headband via [muse-lsl](https://github.com/alexandrebarachant/muse-lsl)
+- Collects and processes EEG data for stress analysis
+- Uses alpha/beta ratio and other EEG metrics for scientifically-based stress calculation
+- Generates coffee recommendations based on real stress measurements
+
+Command line options:
+- `--use-real-muse`: Use real Muse headband (if available) instead of simulated data
+- `--measurements`: Number of stress measurements to take (default: 1)
+- `--measurement-duration`: Duration of each measurement in seconds (default: 10)
+- `--interval`: Time between measurements in seconds (default: 60)
 
 ## Output
 
-The scripts generate several output files:
+The scripts generate various outputs:
 - Feature importance plots
 - Correlation matrices
 - Model comparison graphs
-- Detailed data analysis text files
+- Stress history charts (for stress-based recommendation scripts)
+- Coffee recommendations in JSON format (in the `output` directory)
 
-All visualization images are saved in a `figures` directory that will be created automatically.
+## Data
 
-## Data Structure
-
-These scripts analyze coffee-related CSV files located in the parent `data` directory:
-- `../data/nlc-grind-data.csv`: Data about coffee grinding events
-- `../data/nlc-brew-data.csv`: Data about coffee brewing events 
+The scripts expect the following data files:
+- `../data/nlc-grind-data.csv` - Coffee grinder data
+- `../data/nlc-brew-data.csv` - Coffee brewing data 
